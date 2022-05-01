@@ -8,22 +8,28 @@ const chainMaker = {
     chain: [],
   getLength() {
     return this.chain.length;
-    
   },
   addLink(value) {
-      if(value == 'string') return this.chain.push(value);
+      if(value == 'string') this.chain.push(value);
+      return this;
   },
   removeLink(position) {
-    if(Number.isInteger(position)) {
-      return this.chain.splice(position - 1, 1);
+    if(this.chain[position - 1] == undefined) {
+      this.chain = [];
+      throw new Error("You can't remove incorrect link!");
     }
-    else throw new Error("You can't remove incorrect link!");
+    this.chain.splice(position - 1, 1);
+    return this;
   },
   reverseChain() {
-    return this.chain.reverse();
+    this.chain.reverse();
+    return this;
+    
   },
   finishChain() {
-  
+    let res = this.chain.join('~~');
+    this.chain = [];
+    return res;
   }
 };
 // need to fix
