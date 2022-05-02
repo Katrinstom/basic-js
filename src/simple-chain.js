@@ -10,15 +10,15 @@ const chainMaker = {
     return this.chain.length;
   },
   addLink(value) {
-      if(value == 'string') this.chain.push(value);
-      return this;
+    this.chain.push(`( ${value} )`);
+    return this;
   },
   removeLink(position) {
-    if(this.chain[position - 1] == undefined) {
+    if((typeof position !== 'number') || (position <= 0) || (position > this.chain.length)) {
       this.chain = [];
       throw new Error("You can't remove incorrect link!");
     }
-    this.chain.splice(position - 1, 1);
+    else this.chain.splice((position - 1), 1);
     return this;
   },
   reverseChain() {
@@ -30,9 +30,9 @@ const chainMaker = {
     let res = this.chain.join('~~');
     this.chain = [];
     return res;
-  }
+  },
 };
-// need to fix
+
 
 module.exports = {
   chainMaker
